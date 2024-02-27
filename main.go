@@ -1,9 +1,11 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 type user struct {
@@ -17,13 +19,21 @@ var users = []user{
 	{ID: "3", Name: "Sarah Vaughan"},
 }
 
+func init() {
+	err := godotenv.Load()
+
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+}
+
 func main() {
 	router := gin.Default()
 	router.GET("/users", getUsers)
 	router.GET("/users/:id", getUserByID)
 	router.POST("/users", postUsers)
 
-	router.Run("localhost:8080")
+	router.Run()
 }
 
 func getUsers(c *gin.Context) {
