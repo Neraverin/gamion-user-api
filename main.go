@@ -1,11 +1,10 @@
 package main
 
 import (
-	"log"
 	"net/http"
 
+	"github.com/Neraverin/gamion-users/initializers"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
 
 type user struct {
@@ -20,11 +19,7 @@ var users = []user{
 }
 
 func init() {
-	err := godotenv.Load()
-
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	initializers.LoadEnvVariables()
 }
 
 func main() {
